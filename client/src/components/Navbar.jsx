@@ -61,7 +61,7 @@ const AppNavbar = () => {
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey='login'>
-                <LoginForm handleModalClose={() => setShowModal(false)} />
+                <LoginForm handleModalClose={() => gi} />
               </Tab.Pane>
               <Tab.Pane eventKey='signup'>
                 <SignUpForm handleModalClose={() => setShowModal(false)} />
