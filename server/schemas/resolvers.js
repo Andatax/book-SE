@@ -1,4 +1,5 @@
-const User = require("../models/User");
+const { User } = require("../models");
+const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
 	Query: {
@@ -10,26 +11,36 @@ const resolvers = {
 	},
 	Mutation: {
 		login: async (parent, { email, password }) => {
-			const user = await User.findOne({ email });
+			try {
+				const user = await User.findOne({ email });
 
-			if (!user) {
-				return res.status(400).json({ message: "Can't find this user" });
+				if (!user) {
+					throw AuthenticationError;
+				}
+
+				const correctPw = await user.isCorrectPassword(password);
+
+				if (!correctPw) {
+					throw AuthenticationError;
+				}
+
+				const token = signToken(user);
+				return { token, user };
+			} catch (err) {
+				console.log(err);
+				return err;
 			}
-
-			const correctPw = await user.isCorrectPassword(password);
-
-			if (!correctPw) {
-				return res.status(400).json({ message: "Wrong password!" });
-			}
-
-			const token = signToken(user);
-			return { token, user };
 		},
-		createUser: async (parent, args) => {
-			const user = await User.create(args);
-			const token = signToken(user);
-
-			return { token, user };
+		createUser: async (parent, { username, email, password }) => {
+			try {
+				const user = await User.create({ username, email, password });
+				const token = signToken(user);
+				console.log(token);
+				console.log(user);
+				return { token, user };
+			} catch (err) {
+				console.log(err);
+			}
 		},
 		saveBook: async (parent, { bookData }, context) => {
 			if (context.user) {
@@ -55,3 +66,5 @@ const resolvers = {
 		},
 	},
 };
+
+module.exports = resolvers;

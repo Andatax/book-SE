@@ -19,6 +19,7 @@ const userSchema = new Schema(
 		password: {
 			type: String,
 			required: true,
+			minlength: 4,
 		},
 		savedBooks: [bookSchema],
 	},
@@ -34,6 +35,7 @@ userSchema.pre("save", async function (next) {
 		const saltRounds = 10;
 		this.password = await bcrypt.hash(this.password, saltRounds);
 	}
+
 	next();
 });
 

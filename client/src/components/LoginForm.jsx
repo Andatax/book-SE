@@ -28,38 +28,17 @@ const LoginForm = () => {
 			event.preventDefault();
 			event.stopPropagation();
 		}
-		// try {
-		// 	const response = await loginUser(userFormData);
-
-		// 	if (!response.ok) {
-		// 		throw new Error("something went wrong!");
-		// 	}
-
-		// 	const { token, user } = await response.json();
-		// 	console.log(user);
-		// 	Auth.login(token);
-		// } catch (err) {
-		// 	console.error(err);
-		// 	setShowAlert(true);
-		// }
 		try {
 			const { data } = await login({
 				variables: { ...userFormData },
 			});
 
-			if (!data) {
-				throw new Error("something went wrong!");
-			}
-
-			console.log(data.login.user);
 			Auth.login(data.login.token);
 		} catch (err) {
-			console.error(err);
+			console.error("Error from login function:", err);
 			setShowAlert(true);
 		}
-
 		setUserFormData({
-			username: "",
 			email: "",
 			password: "",
 		});
