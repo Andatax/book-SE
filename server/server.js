@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const { typeDefs, resolvers } = require("./schemas/index");
 const db = require("./config/connection");
+require("dotenv").config({ path: "../.env" });
 
 const PORT = process.env.PORT || 3001;
 const app = express();
