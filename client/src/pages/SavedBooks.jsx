@@ -11,10 +11,10 @@ import { useQuery } from "@apollo/client";
 const SavedBooks = () => {
 	const [userData, setUserData] = useState({});
 	const token = Auth.loggedIn() ? Auth.getToken() : null;
-	console.log("Token:", token);
+	// console.log("Token:", token);
 	// use this to determine if `useEffect()` hook needs to run again
 	const userDataLength = Object.keys(userData).length;
-
+	// const [removeBook] = useMutation(REMOVE_BOOK);
 	const { loading, error, data } = useQuery(GET_ME);
 	if (error) {
 		console.error("Error executing GET_ME query", error);

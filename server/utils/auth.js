@@ -16,19 +16,19 @@ module.exports = {
 		if (req.headers.authorization) {
 			token = token.split(" ").pop().trim();
 		}
-		console.log("Token:", token);
+
 		if (!token) {
-			throw new GraphQLError("No token provided.");
+			console.log(`No token provided for ${req.method} ${req.path}`);
 			return req;
 		}
 
 		try {
 			const { data } = jwt.verify(token, process.env.AUTH_SECRET, { maxAge: expiration });
 			req.user = data;
-			console.log("User data:", data);
+			// console.log("User data:", data);
 		} catch {
-			throw new GraphQLError("Invalid token.");
-			console.log("Invalid token");
+			console.log("Invalid token.");
+			return req;
 		}
 
 		return req;

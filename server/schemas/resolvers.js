@@ -25,8 +25,9 @@ const resolvers = {
 				if (!correctPw) {
 					throw AuthenticationError;
 				}
-
+				// console.log(user);
 				const token = signToken(user);
+				// console.log(token);
 				return { token, user };
 			} catch (err) {
 				console.log(err);
@@ -37,8 +38,8 @@ const resolvers = {
 			try {
 				const user = await User.create({ username, email, password });
 				const token = signToken(user);
-				console.log(token);
-				console.log(user);
+				// console.log(token);
+				// console.log(user);
 				return { token, user };
 			} catch (err) {
 				console.log(err);

@@ -6,13 +6,13 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 
 // import { loginUser } from "../utils/API";
-import Auth from "../utils/auth";
+import AuthService from "../utils/auth";
 
 const LoginForm = () => {
 	const [userFormData, setUserFormData] = useState({ email: "", password: "" });
 	const [validated] = useState(false);
 	const [showAlert, setShowAlert] = useState(false);
-	const [login, { error, data }] = useMutation(LOGIN_USER); // useMutation hook for login mutation
+	const [loginMutation, { error, data }] = useMutation(LOGIN_USER); // useMutation hook for login mutation
 
 	const handleInputChange = event => {
 		const { name, value } = event.target;
@@ -28,16 +28,26 @@ const LoginForm = () => {
 			event.preventDefault();
 			event.stopPropagation();
 		}
+
 		try {
-			const { data } = await login({
+			const { data } = await loginMutation({
 				variables: { ...userFormData },
 			});
 
-			Auth.login(data.login.token);
+			if (!data || !data.login || !data.login.token) {
+				console.error("Unexpected response from login mutation:", data);
+				setShowAlert(true);
+				return;
+			}
+
+			// console.log("Data from login mutation:", data);
+			// console.log("Token from login mutation:", data.login.token);
+			AuthService.login(data.login.token);
 		} catch (err) {
 			console.error("Error from login function:", err);
 			setShowAlert(true);
 		}
+
 		setUserFormData({
 			email: "",
 			password: "",
