@@ -19,7 +19,6 @@ const server = new ApolloServer({
 const startApolloServer = async () => {
 	app.use(cors());
 	await server.start();
-
 	app.use(express.urlencoded({ extended: false }));
 	app.use(express.json());
 

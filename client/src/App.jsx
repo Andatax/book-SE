@@ -3,10 +3,10 @@ import { Outlet } from "react-router-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import Navbar from "./components/Navbar";
-const serverUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:3001";
+
 
 const httpLink = createHttpLink({
-	uri: `${serverUrl}/graphql`,
+	uri: `/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
