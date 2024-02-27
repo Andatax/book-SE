@@ -1,4 +1,4 @@
-# Social Media WebApp
+# Book Search Engine
 
 This is a full-stack social media web application built with MongoDB, Mongoose, Express, React, Apollo, and Moment.js for date formatting. It allows users to create, read, update, and delete social media posts. It also provides user authentication and comment functionality.
 
@@ -10,6 +10,7 @@ This application provides a book search engine. When the user loads the search e
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Link to Deployed Application](#link-to-deployed-application)
 - [License](#license)
 - [Contributing](#contributing)
 - [Questions](#questions)
@@ -28,7 +29,7 @@ git clone
 2. Open your terminal and navigate to the cloned project directory:
 
 ```
-cd social-network-mdb
+cd book-se
 ```
 
 3. Install the required dependencies:
@@ -87,7 +88,10 @@ This application is a book search engine that allows users to search for books a
 
    Click on the "Logout" button to log out of the site. You will be presented with a menu with the options "Search for Books" and "Login/Signup" and an input field to search for books and a submit button.
 
-## Link to deployed application
+## Link to Deployed Application
+
+[Link to WalkThrough Video](https://book-se-graphqlmigration.onrender.com/)
+![Deployed application image](./client/src/assets/imgs/book-se-ss.png)
 
 ## License
 
